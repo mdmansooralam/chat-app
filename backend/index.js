@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080
 
 app.use(cors({
     credentials:true,
-    origin:'http://localhost:5173'
+    origin:'https://mansoor-chat-app.vercel.app'
 }))
 app.use(express.json())
 app.use(cookieParser())

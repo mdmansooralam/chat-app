@@ -1,9 +1,25 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import MessageInput from './MessageInput'
+import socket from '../utils/socket'
+import { addMessage } from '../store/chatSlice'
 
 function ChatContainer() {
     const {selectedUser, messages} = useSelector(state => state.chat)
+    const dispatch = useDispatch()
+    const bottomRef = useRef(null)
+
+    useEffect(()=>{
+      socket.on('receiveMessage', (msg)=>{
+        dispatch(addMessage(msg))
+      })
+      return ()=>{socket.off('receiveMessage')}
+    },[dispatch])
+
+
+    useEffect(()=>{
+      bottomRef.current?.scrollIntoView({behavior:'smooth'})
+    },[messages])
 
 
   return selectedUser ? (
@@ -17,6 +33,7 @@ function ChatContainer() {
                 </div>
           <span>{selectedUser.name}</span>
         </div>
+
       </div>
         {messages.length > 0 ? 
         <div className='grow p-4 overflow-y-auto'>
@@ -25,6 +42,7 @@ function ChatContainer() {
                     <div className='chat-bubble'>{msg.text}</div>
                 </div>
                 ))}
+        <div ref={bottomRef}></div>
         </div> : 
         <div>No message history available</div>}
 

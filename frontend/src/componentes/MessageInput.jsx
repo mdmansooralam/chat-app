@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from '../api/axiosConfig.js'
 import {useForm} from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import {addMessage} from '../store/chatSlice.js'
+import socket from '../utils/socket.js'
 
 function MessageInput() {
     const {handleSubmit, register, formState:{errors}, reset} = useForm()
-    const {selectedUser} = useSelector(state => state.chat)
+    const {selectedUser, onlineUsers} = useSelector(state => state.chat)
     const dispatch = useDispatch()
 
     const onSendMsg = async (data) =>{
@@ -14,6 +15,13 @@ function MessageInput() {
         const response = await axios.post(`/message/send/${selectedUser._id}`, data)
         if(response){
           console.log('msg send successfully')
+
+          if(onlineUsers?.includes(selectedUser._id)){
+            console.log('online users found')
+            socket.emit('sendMessage', {receiverId:selectedUser._id, message:response.data})
+
+          }
+
           dispatch(addMessage(response.data))
         }
       } catch (error) {

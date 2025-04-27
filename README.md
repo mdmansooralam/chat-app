@@ -14,12 +14,12 @@ Responsive and user-friendly UI
 Logout and session handling
 
 🚀 Tech Stack:
-Frontend: [React / HTML/CSS]
+Frontend: React
 
-Backend: [Node.js / Express]
+Backend: Node.js
 
-Database: [MongoDB ]
+Database: MongoDB
 
-Authentication: [JWT / OAuth / Firebase Auth]
+Authentication: JWT
 
-Real-Time: [Socket.IO / Firebase Realtime DB]
+Real-Time: Socket.IO

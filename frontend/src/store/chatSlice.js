@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+import io from 'socket.io-client'
 
 
 const initialState = {
     selectedUser : null,
     users:null,
     messages : null,
+    onlineUsers:null,
+    socket:null,
     
 }
 
@@ -37,6 +40,10 @@ const chatSlice = createSlice({
             state.messages = []
         },
 
+        setOnlineUser:(state, action)=>{
+            state.onlineUsers = action.payload
+        }
+
     }
 })
 
@@ -48,5 +55,7 @@ export const {
     setUsers,
     addMessage,
     clearMessage,
-    setMessage
+    setMessage,
+    setOnlineUser,
+    
 } = chatSlice.actions

@@ -8,6 +8,7 @@ function ChatContainer() {
     const {selectedUser, messages} = useSelector(state => state.chat)
     const dispatch = useDispatch()
     const bottomRef = useRef(null)
+    const containerRef = useRef(null)
 
     useEffect(()=>{
       socket.on('receiveMessage', (msg)=>{
@@ -18,7 +19,11 @@ function ChatContainer() {
 
 
     useEffect(()=>{
-      bottomRef.current?.scrollIntoView({behavior:'smooth'})
+      const container = containerRef.current
+      const isNearToBottom = container?.scrollHeight - container?.scrollTop - container?.clientHeight < 100
+      if(isNearToBottom){  
+        bottomRef.current?.scrollIntoView({behavior:'smooth'})
+      }
     },[messages])
 
 
@@ -36,7 +41,7 @@ function ChatContainer() {
 
       </div>
         {messages.length > 0 ? 
-        <div className='grow p-4 overflow-y-auto'>
+        <div className='grow p-4 overflow-y-auto' ref={containerRef}>
             {messages.map(msg => (
                 <div key={msg._id} className={`chat ${selectedUser._id == msg.senderId ? 'chat-start' : 'chat-end'}`}>
                     <div className='chat-bubble'>{msg.text}</div>

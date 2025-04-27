@@ -14,8 +14,6 @@ function MessageInput() {
       try {
         const response = await axios.post(`/message/send/${selectedUser._id}`, data)
         if(response){
-          console.log('msg send successfully')
-
           if(onlineUsers?.includes(selectedUser._id)){
             console.log('online users found')
             socket.emit('sendMessage', {receiverId:selectedUser._id, message:response.data})

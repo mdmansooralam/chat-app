@@ -6,18 +6,15 @@ const app = express()
 const server = createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: 'https://mansoor-chat-app.vercel.app', // Replace with your frontend origin
+        origin: process.env.NODE_ENV === 'porduction' ? 'https://mansoor-chat-app.vercel.app' : 'http://localhost:5173', // Replace with your frontend origin
         methods: ['GET', 'POST'],
         credentials: true
       }
 })
 
-
 //socket connection
 
 const onlineUsers = new Map()
-
-
 
 io.on('connection', (socket)=>{
   // console.log('user connected', socket.id)
@@ -47,8 +44,6 @@ io.on('connection', (socket)=>{
 
   
 })
-
-
 
 
 export {app, server, io}

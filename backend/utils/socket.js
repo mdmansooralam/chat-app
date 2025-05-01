@@ -7,7 +7,7 @@ const server = createServer(app)
 const io = new Server(server, {
     cors: {
         // origin: process.env.NODE_ENV === 'porduction' ? 'https://mansoor-chat-app.vercel.app' : 'http://localhost:5173', // Replace with your frontend origin
-        origin:['https://mansoor-chat-app.vercel.app', 'http://localhost:5173'],
+        origin:['https://mansoor-chat-app.vercel.app', 'http://localhost:5173', 'https://chat-app.mdmansooralam.in'],
         methods: ['GET', 'POST'],
         credentials: true
       }

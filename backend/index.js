@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 8080
 app.use(cors({
     credentials:true,
     // origin:process.env.NODE_ENV === 'production' ? 'https://mansoor-chat-app.vercel.app': 'http://localhost:5173'
-    origin:['https://mansoor-chat-app.vercel.app', 'http://localhost:5173']
+    origin:['https://mansoor-chat-app.vercel.app', 'http://localhost:5173', 'https://chat-app.mdmansooralam.in']
 }))
 
 app.use(express.json())

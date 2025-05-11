@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MessageInput from './MessageInput'
 import socket from '../utils/socket'
-import { addMessage } from '../store/chatSlice'
+import { addMessage, clearSelectedUser } from '../store/chatSlice'
 
 function ChatContainer() {
     const {selectedUser, messages} = useSelector(state => state.chat)
@@ -31,12 +31,13 @@ function ChatContainer() {
     <div className='flex flex-col h-full'>
       <div className='bg-base-300 py-2 px-4'>
         <div className='flex gap-4 items-center'>
-        <div className='avatar'>
-                    <div className='w-12 rounded-full'>
-                        <img src={selectedUser.profilePic ? selectedUser.profilePic : `https://ui-avatars.com/api/?name=${selectedUser.name}`} alt="Pic" />
-                    </div>
-                </div>
+          <div className='avatar'>
+                      <div className='w-12 rounded-full'>
+                          <img src={selectedUser.profilePic ? selectedUser.profilePic : `https://ui-avatars.com/api/?name=${selectedUser.name}`} alt="Pic" />
+                      </div>
+          </div>
           <span>{selectedUser.name}</span>
+          <button onClick={()=>dispatch(clearSelectedUser())} className='ml-auto text-lg font-bold cursor-pointer'>X</button>
         </div>
 
       </div>
@@ -49,14 +50,15 @@ function ChatContainer() {
                 ))}
         <div ref={bottomRef}></div>
         </div> : 
-        <div>No message history available</div>}
+        <div className='justify-center w-full h-full'>No message history available</div>}
 
-        <div className=''>
+        <div className='mt-auto'>
           <MessageInput />
         </div>
     </div>
   ) : (
-    <div className='flex justify-center items-center h-full'>Select the user to chat </div>
+    // <div className='flex justify-center items-center h-full'>Select the user to chat </div>
+    null
   )
 }
 

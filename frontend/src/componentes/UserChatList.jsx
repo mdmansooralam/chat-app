@@ -5,7 +5,7 @@ import axios from '../api/axiosConfig.js'
 
 function UserChatList() {
 
-    const {users, onlineUsers} = useSelector(state => state.chat)
+    const {users, onlineUsers, selectedUser} = useSelector(state => state.chat)
     const dispatch = useDispatch()
 
     const handleClick = async(user) =>{
@@ -41,16 +41,16 @@ function UserChatList() {
 
 
   return (
-    <div className='max-w-xs overflow-y-auto h-full bg-red-500'>
+    <div className={`w-full sm:max-w-xs overflow-y-auto scrollbar-thumb-gray-500 h-full ${selectedUser ? 'hidden sm:block':''}`}>
         {users?.map((user)=> (
-            <div role='button' onClick={()=>handleClick(user)} key={user._id} className='flex p-4 hover:bg-base-100 transition-all bg-base-300 gap-2 cursor-pointer border-b border-base-100'>
-                <div className={`avatar ${onlineUsers?.includes(user._id) ? 'avatar-online':''}`}>
-                    <div className='ring-primary ring-offset-base-100 w-12 rounded-full ring ring-offset-2'>
+            <div role='button' onClick={()=>handleClick(user)} key={user._id} className='flex p-4 hover:bg-gray-800 transition-all bg-gray-950 text-white gap-2 cursor-pointer border-b border-base-100'>
+                <div className={`avatar ${onlineUsers?.includes(user._id) ? 'avatar-online':''} `}>
+                    <div className=' w-12 rounded-full'>
                         <img src={user.profilePic ? user.profilePic : `https://ui-avatars.com/api/?name=${user.name}`} alt="Pic" />
                     </div>
                 </div>
                 <div>
-                    <p>{user?.name}</p>
+                    <p className='text-md capitalize'>{user?.name}</p>
                     <p>{user?.email}</p>
                 </div>
             </div>

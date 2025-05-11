@@ -42,7 +42,7 @@ function ChatContainer() {
 
       </div>
         {messages.length > 0 ? 
-        <div className='grow p-4 overflow-y-auto' ref={containerRef}>
+        <div className='grow p-4 overflow-y-auto scrollbar-none' ref={containerRef}>
             {messages.map(msg => (
                 <div key={msg._id} className={`chat ${selectedUser._id == msg.senderId ? 'chat-start' : 'chat-end'}`}>
                     <div className='chat-bubble'>{msg.text}</div>

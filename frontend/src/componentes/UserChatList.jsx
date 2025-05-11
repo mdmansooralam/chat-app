@@ -41,7 +41,7 @@ function UserChatList() {
 
 
   return (
-    <div className={`w-full sm:max-w-xs overflow-y-auto scrollbar-thumb-gray-500 h-full ${selectedUser ? 'hidden sm:block':''}`}>
+    <div className={`w-full sm:max-w-xs overflow-auto scrollbar-none h-full ${selectedUser ? 'hidden sm:block':''}`}>
         {users?.map((user)=> (
             <div role='button' onClick={()=>handleClick(user)} key={user._id} className='flex p-4 hover:bg-gray-800 transition-all bg-gray-950 text-white gap-2 cursor-pointer border-b border-base-100'>
                 <div className={`avatar ${onlineUsers?.includes(user._id) ? 'avatar-online':''} `}>

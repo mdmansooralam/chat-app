@@ -4,6 +4,11 @@ import {useForm} from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import {addMessage} from '../store/chatSlice.js'
 import socket from '../utils/socket.js'
+import { RiAttachmentLine } from "react-icons/ri";
+import { FaArrowRightLong } from "react-icons/fa6";
+
+
+
 
 function MessageInput() {
     const {handleSubmit, register, formState:{errors}, reset} = useForm()
@@ -30,9 +35,15 @@ function MessageInput() {
     } 
   return (
     <div>
-        <form onSubmit={handleSubmit(onSendMsg)} className='flex w-full gap-4 p-4'>
-            <input {...register('text')} type="text" className='grow border border-gray-400 bg-base-200 py-2 px-4 focus:outline-none rounded-full'/>
-            <button type='submit' className='cursor-pointer bg-primary py-2 px-4 rounded-lg text-white font-semibold '>Send</button>
+        <form onSubmit={handleSubmit(onSendMsg)} className='flex w-full gap-2 p-4 items-center'>
+            <label htmlFor="file" className='cursor-pointer'><RiAttachmentLine />
+</label>
+            <input type="file" id='file' className='hidden'/>
+            <input {...register('text')} type="text" placeholder='Type a message...' className='grow border border-gray-400 bg-base-200 py-2 px-4 focus:outline-none rounded-full'/>
+            <button type='submit' className='cursor-pointer bg-primary p-2 flex justify-center items-center w-10 rounded-full aspect-square text-white font-semibold '><FaArrowRightLong />
+ 
+</button>
+
 
         </form>
     </div>

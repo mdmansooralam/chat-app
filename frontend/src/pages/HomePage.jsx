@@ -5,7 +5,7 @@ import MessageInput from '../componentes/MessageInput'
 
 function HomePage() {
   return (
-    <div className='flex h-[calc(100vh-5rem)]'>
+    <div className='flex h-dvh'>
       <UserChatList />
       <div className='grow'>
         <ChatContainer />

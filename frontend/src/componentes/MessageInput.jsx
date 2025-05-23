@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from '../api/axiosConfig.js'
 import {useForm} from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,9 +14,14 @@ function MessageInput() {
     const {handleSubmit, register, formState:{errors}, reset} = useForm()
     const {selectedUser, onlineUsers} = useSelector(state => state.chat)
     const dispatch = useDispatch()
+    const [messageSending, setMessageSending] = useState(false)
 
     const onSendMsg = async (data) =>{
+      if(!data.text || messageSending){
+        return
+      }
       try {
+        setMessageSending(true)
         const response = await axios.post(`/message/send/${selectedUser._id}`, data)
         if(response){
           if(onlineUsers?.includes(selectedUser._id)){
@@ -30,7 +35,7 @@ function MessageInput() {
       } catch (error) {
         console.log('something errors')
       }
-
+      setMessageSending(false)
       reset()
     } 
   return (
